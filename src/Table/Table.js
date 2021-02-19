@@ -6,26 +6,26 @@ import { MyContext } from '../App'
 const Table = () => {
   const state = useContext(MyContext)
   const moneytable = state.money || {}
+  const playerMap = state.teamnames || {}
+  
   return (
     <div className="card-body">
     <table className="table table-hover">
       <thead className="thead-light">
         <tr className="d-flex">
           <th className="col">Gameweek</th>
-          <th className="col">Zzuco</th>
-          <th className="col">Head Sitters</th>
-          <th className="col">Neutral Haters</th>
-          <th className="col">Comeback Boys</th>
+          {Object.entries(playerMap).map(([id, playerName]) => (
+                <th className="col" key={playerName}>{playerName}</th>
+              ))}
         </tr>
       </thead>
       <tbody>       
-          {Object.entries(moneytable).map(([key, value]) => (
-            <tr className="d-flex" key={key}>
-              <td className="col">{key}</td>
-              <td className="col">{value['Zzuco']}</td>
-              <td className="col">{value['The Heads Sitter']}</td>
-              <td className="col">{value['Neutral Haters']}</td>
-              <td className="col">{value['The Comeback Boys']}</td>
+          {Object.entries(moneytable).map(([gw, money]) => (
+            <tr className="d-flex" key={gw}>
+              <td className="col">{gw}</td>
+              {Object.entries(playerMap).map(([id, playerName]) => (
+                <td className="col" key={id}>{money[id]}</td>
+              ))}
             </tr>
           ))}
        

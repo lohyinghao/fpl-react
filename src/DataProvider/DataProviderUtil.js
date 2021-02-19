@@ -25,7 +25,12 @@ export function getTeamnames(playersList, data) {
                       .then(response => response.json())
                       .then(gwData => {
                         data.gwPts[id] = [];
-                        gwData.current.forEach((res) => data.gwPts[id].push(res.points - res.event_transfers_cost))
+                        data.totalPts[id] = [];
+                        gwData.current.forEach((res) => {
+                          data.gwPts[id].push(res.points - res.event_transfers_cost)
+                          data.totalPts[id].push(res.total_points)
+                          data.currentGW = res.event
+                        })
                       })
       promiseArray.push(singleP)                
     })
@@ -37,21 +42,21 @@ export function getTeamnames(playersList, data) {
       let gw = i + 1;
       data.money[gw] = {};
       let scoringArr = [];
-      let tempTeamname = [];
+      //let tempTeamname = [];
       for (let x = 0; x < playersList.length; x++) {
-        tempTeamname.push(data.teamnames[playersList[x]]);
+        //tempTeamname.push(data.teamnames[playersList[x]]);
         scoringArr.push(data.gwPts[playersList[x]][i]);
       }
 
       let ranks = calculateContribution(scoringArr);
       for (let k = 0; k < ranks.length; k++) {
-        let teamname = tempTeamname[k];
-        data.money[gw][teamname] = ranks[k];
+        //let teamname = tempTeamname[k];
+        data.money[gw][playersList[k]] = ranks[k];
         // probably can be replace with lodash
-        if (typeof data.money['Total'][teamname] === 'undefined'){
-            data.money['Total'][teamname] = 0;
+        if (typeof data.money['Total'][playersList[k]] === 'undefined'){
+            data.money['Total'][playersList[k]] = 0;
         }
-        data.money['Total'][teamname] += ranks[k];
+        data.money['Total'][playersList[k]] += ranks[k];
         }
       }
   }

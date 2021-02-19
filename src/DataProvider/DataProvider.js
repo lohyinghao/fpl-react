@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './DataProvider.css';
 import { MyContext } from '../App'
-import { getTeamnames,  getGWPoints, getMoney} from './DataProviderUtil'
+import { getTeamnames,  getGWPoints, getMoney } from './DataProviderUtil'
 
 // should belong in some config files
 const playersList = ['1737057', '385668', '381635', '384937'] 
 const initialState = {
   teamnames: {},
   gwPts: {},
+  totalPts: {},
   money: { Total: {} }
 }
 

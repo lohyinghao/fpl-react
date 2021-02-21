@@ -22,11 +22,11 @@ jobs:
       - name: Install client packages
         run: npm install
       - name: Build react app
-        uses: npm run build
+        run: npm run build
       - name: return to root
-        use: cd ..
+        run: cd ..
       - name: deploy to Heroku
-        use: akhileshns/heroku-deploy@v3.11.10
+        uses: akhileshns/heroku-deploy@v3.11.10
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'prophetleague'

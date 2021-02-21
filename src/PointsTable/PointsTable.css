@@ -1,0 +1,20 @@
+.MuiDataGrid-colCellTitle {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.MuiDataGrid-cell {
+  display: block;
+  position: relative;
+  text-align: center;
+}
+
+.MuiDataGrid-colCellWrapper {
+  background-color: #4dabf5;
+  color: #ffffff;
+}
+
+.MuiDataGrid-row:nth-of-type(even) {
+  background-color: #f3f3f3;
+}

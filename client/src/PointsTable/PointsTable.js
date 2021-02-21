@@ -12,12 +12,16 @@ const PointsTable = () => {
   const playerMap = state.teamnames || {};
 
   const columns = [
-    { field: 'id', headerName: 'GW', flex: 1, align: 'center' },
+    { field: 'id', headerName: 'GW', flex: 1 },
     ...Object.entries(playerMap).map(([id, playerName]) => ({
       field: id,
       headerName: playerName,
       flex: 2,
-      align: 'center',
+      renderHeader: (params) => {
+        return params.colDef.width > 150
+          ? playerName
+          : playerName.match(/\b(\w)/g).join(''); // get acronym
+      },
     })),
   ];
 
@@ -30,7 +34,12 @@ const PointsTable = () => {
     <Paper>
       <DataGrid
         rows={rows}
-        columns={columns.map((c) => ({ ...c, sortable: false }))}
+        columns={columns.map((c) => ({
+          ...c,
+          sortable: false,
+          headerAlign: 'center',
+          align: 'center',
+        }))}
         hideFooter='true'
         density='compact'
         disableColumnMenu

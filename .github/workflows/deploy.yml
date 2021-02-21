@@ -2,7 +2,7 @@ name: Deployment
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,12 +17,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Server Packages
         run: npm install
-      - name: Navigate to Client
-        run: cd client/
       - name: Install client packages
         run: npm install
+        working-directory: ./client
       - name: Build react app
         run: npm run build
+        working-directory: ./client
       - name: return to root
         run: cd ..
       - name: deploy to Heroku

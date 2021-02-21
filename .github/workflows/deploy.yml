@@ -1,0 +1,33 @@
+name: Deployment
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install Server Packages
+      run: npm install
+    - name: Navigate to Client
+      run: cd client/
+    - name: Install client packages
+      run: npm install
+    - name: Build react app
+      uses: npm run build
+    - name: return to root
+      use: cd ..
+    - name: deploy to Heroku
+      use: akhileshns/heroku-deploy@v3.11.10
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "prophetleague"
+          heroku_email: "lohyinghao91.gmail.com"

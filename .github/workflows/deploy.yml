@@ -23,8 +23,6 @@ jobs:
       - name: Build react app
         run: npm run build
         working-directory: ./client
-      - name: return to root
-        run: cd ..
       - name: deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.11.10
         with:

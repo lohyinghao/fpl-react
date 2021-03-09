@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
 
 import { faDragon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,7 +20,9 @@ export const MyContext = React.createContext();
 
 const theme = createMuiTheme({
   palette: {
-    primary: blue,
+    primary: {
+      main: '#424242',
+    },
   },
 });
 

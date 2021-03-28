@@ -1,8 +1,0 @@
-.MuiDataGrid-colCellWrapper {
-  background-color: #424242;
-  color: #ffffff;
-}
-
-.MuiDataGrid-row:nth-of-type(even) {
-  background-color: #f3f3f3;
-}

@@ -2,50 +2,73 @@ import React, { useContext } from 'react';
 import './PointsTable.css';
 import { MyContext } from '../App';
 
-import { DataGrid } from '@material-ui/data-grid';
+import { AgGridReact } from 'ag-grid-react';
 
-import Paper from '@material-ui/core/Paper';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+
+const topOptions = {
+  alignedGrids: [],
+  defaultColDef: {
+    flex: 1,
+  },
+  suppressHorizontalScroll: true,
+};
+
+// Deep copy options as we need another instance for it
+const bottomOptions = Object.assign({}, topOptions);
+
+topOptions.alignedGrids.push(bottomOptions);
+bottomOptions.alignedGrids.push(topOptions);
 
 const PointsTable = () => {
   const state = useContext(MyContext);
   const moneytable = state.money || {};
   const playerMap = state.teamnames || {};
 
-  const columns = [
-    { field: 'id', headerName: 'GW', flex: 1 },
+  const columnDefs = [
+    { field: 'id', headerName: 'GW' },
     ...Object.entries(playerMap).map(([id, playerName]) => ({
       field: id,
-      headerName: playerName,
-      flex: 2,
-      renderHeader: (params) => {
-        return params.colDef.width > 150
-          ? playerName
-          : playerName.match(/\b(\w)/g).join(''); // get acronym
-      },
+      headerName: playerName.replace(/the\s/i, ''),
+      flex: 1.5,
+      // renderHeader: (params) => {
+      //   return params.colDef.width > 150
+      //     ? playerName
+      //     : playerName.match(/\b(\w)/g).join(''); // get acronym
+      // },
     })),
   ];
 
-  const rows = Object.entries(moneytable).map(([gw, subTable]) => ({
+  const rowData = Object.entries(moneytable).map(([gw, subTable]) => ({
     id: gw,
     ...subTable,
   }));
 
+  const totalRowData = rowData.splice(-1, 1);
+
   return (
-    <Paper>
-      <DataGrid
-        rows={rows}
-        columns={columns.map((c) => ({
-          ...c,
-          sortable: false,
-          headerAlign: 'center',
-          align: 'center',
-        }))}
-        hideFooter='true'
-        density='compact'
-        disableColumnMenu
-        autoHeight
-      />
-    </Paper>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+      className='ag-theme-alpine'
+    >
+      <div style={{ flex: '1 1 auto', height: '300px' }}>
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={columnDefs}
+          gridOptions={topOptions}
+        />
+      </div>
+      <div style={{ flex: 'none', height: '60px' }}>
+        <AgGridReact
+          rowData={totalRowData}
+          columnDefs={columnDefs}
+          headerHeight='0'
+          gridOptions={bottomOptions}
+          rowStyle={{ fontWeight: 'bold' }}
+        />
+      </div>
+    </div>
   );
 };
 

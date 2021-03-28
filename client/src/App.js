@@ -56,9 +56,9 @@ const App = () => {
                   color='primary'
                   gutterBottom
                 >
-                  GW Points Breakdown
+                  Contributions by Gameweek
                 </Typography>
-                <PointsLineChart />
+                <PointsTable />
               </Paper>
             </Grid>
             <Grid item md={4} xs={12}>
@@ -96,9 +96,9 @@ const App = () => {
                   color='primary'
                   gutterBottom
                 >
-                  Contributions by Gameweek
+                  GW Points Breakdown
                 </Typography>
-                <PointsTable />
+                <PointsLineChart />
               </Paper>
             </Grid>
           </Grid>

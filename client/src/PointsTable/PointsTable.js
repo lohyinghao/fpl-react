@@ -31,7 +31,6 @@ const PointsTable = () => {
     ...Object.entries(playerMap).map(([id, playerName]) => ({
       field: id,
       headerName: playerName.replace(/the\s/i, ''),
-      flex: 1.5,
       // renderHeader: (params) => {
       //   return params.colDef.width > 150
       //     ? playerName

@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import './PointsLineChart.css';
 import { MyContext } from '../App';
+import ZoomableChart from '../ZoomableChart/ZoomableChart';
+
 import {
   LineChart,
   Line,
@@ -20,8 +22,6 @@ const PointsLineChart = () => {
   const playerMap = state.teamnames || {};
   const totalPoints = state.totalPts || {};
   const currentGW = state.currentGW;
-
-  const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   const data = [];
 
   for (let i = 0; i < currentGW; i++) {
@@ -33,25 +33,29 @@ const PointsLineChart = () => {
   }
 
   return (
-    <ResponsiveContainer width='100%' height={350}>
-      <LineChart
-        data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
-        <XAxis dataKey='name' />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        {Object.entries(playerMap).map(([id, teamnames], index) => (
-          <Line
-            key={`line-${index}`}
-            dataKey={teamnames}
-            stroke={colors[index]}
-            dot={false}
-          />
-        ))}
-      </LineChart>
-    </ResponsiveContainer>
+    <>
+      {/* <ResponsiveContainer width='100%' height={350}>
+        <LineChart
+          data={data}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <XAxis dataKey='name' />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          {Object.entries(playerMap).map(([id, teamnames], index) => (
+            <Line
+              key={`line-${index}`}
+              dataKey={teamnames}
+              stroke={colors[index]}
+              dot={false}
+            />
+          ))}
+        </LineChart>
+      </ResponsiveContainer> */}
+
+      <ZoomableChart key={data} initialData={data} playerMap={playerMap} />
+    </>
   );
 };
 

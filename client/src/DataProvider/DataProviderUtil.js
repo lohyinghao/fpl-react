@@ -65,6 +65,37 @@ export function getMoney(playersList, data) {
   }
 }
 
+function rankings(arr) {
+  // add whatever parameters you deem necessary....good luck!
+  var sorted = arr.slice().sort(function (a, b) {
+    return b - a;
+  });
+  var ranks = arr.slice().map(function (v) {
+    return sorted.indexOf(v) + 1;
+  });
+  return ranks;
+}
+
+export function getEndOfWeekRanking(playersList, data) {
+  for (let i = 0; i < data.totalPts[playersList[0]].length; i++) {
+    let gw = i + 1;
+    data.endOfWeekRanking[gw] = {};
+    let ranking = [];
+    //let tempTeamname = [];
+    for (let x = 0; x < playersList.length; x++) {
+      //tempTeamname.push(data.teamnames[playersList[x]]);
+      ranking.push(data.totalPts[playersList[x]][i]);
+    }
+
+    let ranks = rankings(ranking);
+    for (let k = 0; k < ranks.length; k++) {
+      //let teamname = tempTeamname[k];
+      data.endOfWeekRanking[gw][playersList[k]] = ranks[k];
+      // probably can be replace with lodash
+    }
+  }
+}
+
 function calculateContribution(arr) {
   let sorted = arr.slice().sort(function (a, b) {
     return b - a;

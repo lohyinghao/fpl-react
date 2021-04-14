@@ -1,12 +1,55 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useCallback, useState } from 'react';
+import { ResponsiveContainer, PieChart, Pie, Sector, Cell } from 'recharts';
 import './ContributionPie.css';
 import { MyContext } from '../App';
 import _ from 'lodash';
 
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
+const renderActiveShape = (props) => {
+  const {
+    cx,
+    cy,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    fill,
+    payload,
+    percent,
+    value,
+  } = props;
 
-import Typography from '@material-ui/core/Typography';
+  return (
+    <g>
+      <text x={cx} y={cy} dy={-12} textAnchor='middle' fill={'#424242'}>
+        {payload.name}
+      </text>
+      <text x={cx} y={cy} dy={8} textAnchor='middle' fill={'#424242'}>
+        {`${(percent * 100).toFixed(2)}%`}
+      </text>
+      <text x={cx} y={cy} dy={26} textAnchor='middle' fill={'#424242'}>
+        {`$${value}`}
+      </text>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+    </g>
+  );
+};
 
 const ContributionPie = () => {
   const state = useContext(MyContext);
@@ -19,27 +62,36 @@ const ContributionPie = () => {
     value: money,
   }));
 
+  console.log(data);
   const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+  // configuration for selection active region of chart
+  const [activeIndex, setActiveIndex] = useState(0);
+  const onPieEnter = useCallback(
+    (_, index) => {
+      setActiveIndex(index);
+    },
+    [setActiveIndex]
+  );
+
   return (
-    <>
-      <ResponsiveContainer width='100%' height={360}>
-        <PieChart>
-          <Pie
-            dataKey='value'
-            data={data}
-            fill='#8884d8'
-            label={true}
-            labelLine={false}
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={colors[index]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
-    </>
+    <ResponsiveContainer width='100%' height={360}>
+      <PieChart width={400} height={400}>
+        <Pie
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          innerRadius={80}
+          data={data}
+          fill='#8884d8'
+          dataKey='value'
+          onMouseEnter={onPieEnter}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index]} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
   );
 };
 
@@ -48,5 +100,3 @@ ContributionPie.propTypes = {};
 ContributionPie.defaultProps = {};
 
 export default ContributionPie;
-
-//npx generate-react-cli component MyComponent

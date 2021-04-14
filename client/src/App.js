@@ -56,7 +56,7 @@ const App = () => {
                   color='primary'
                   gutterBottom
                 >
-                  Contributions by Gameweek
+                  Contributions per Gameweek
                 </Typography>
                 <PointsTable />
               </Paper>
@@ -96,7 +96,7 @@ const App = () => {
                   color='primary'
                   gutterBottom
                 >
-                  GW Points Breakdown
+                  Ranking by Gameweek
                 </Typography>
                 <PointsLineChart />
               </Paper>

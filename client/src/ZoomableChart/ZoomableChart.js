@@ -135,6 +135,7 @@ const ZoomableChart = (props) => {
           domain={[bottom, top]}
           type='number'
           yAxisId='1'
+          reversed={true}
         />
 
         <Tooltip />
@@ -146,6 +147,7 @@ const ZoomableChart = (props) => {
             dataKey={teamnames}
             stroke={colors[index]}
             dot={false}
+            strokeWidth={3}
           />
         ))}
 

@@ -20,40 +20,23 @@ const PointsLineChart = () => {
   //const data = state.money.total || {}
 
   const playerMap = state.teamnames || {};
-  const totalPoints = state.totalPts || {};
+  //const totalPoints = state.totalPts || {};
   const currentGW = state.currentGW;
+  const endOfWeekRanking = state.endOfWeekRanking || {};
   const data = [];
 
   for (let i = 0; i < currentGW; i++) {
-    let tempDataPoint = { name: i + 1 };
+    let tempRanking = { name: i + 1 };
+    console.log(endOfWeekRanking[i + 1]);
     Object.entries(playerMap).forEach(
-      ([id, teamnames]) => (tempDataPoint[teamnames] = totalPoints[id][i])
+      ([id, teamnames]) =>
+        (tempRanking[teamnames] = endOfWeekRanking[i + 1][id])
     );
-    data.push(tempDataPoint);
+    data.push(tempRanking);
   }
 
   return (
     <>
-      {/* <ResponsiveContainer width='100%' height={350}>
-        <LineChart
-          data={data}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <XAxis dataKey='name' />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          {Object.entries(playerMap).map(([id, teamnames], index) => (
-            <Line
-              key={`line-${index}`}
-              dataKey={teamnames}
-              stroke={colors[index]}
-              dot={false}
-            />
-          ))}
-        </LineChart>
-      </ResponsiveContainer> */}
-
       <ZoomableChart key={data} initialData={data} playerMap={playerMap} />
     </>
   );

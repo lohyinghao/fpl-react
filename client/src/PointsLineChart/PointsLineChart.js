@@ -4,17 +4,6 @@ import './PointsLineChart.css';
 import { MyContext } from '../App';
 import ZoomableChart from '../ZoomableChart/ZoomableChart';
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
-
 const PointsLineChart = () => {
   const state = useContext(MyContext);
   //const data = state.money.total || {}
@@ -27,7 +16,6 @@ const PointsLineChart = () => {
 
   for (let i = 0; i < currentGW; i++) {
     let tempRanking = { name: i + 1 };
-    console.log(endOfWeekRanking[i + 1]);
     Object.entries(playerMap).forEach(
       ([id, teamnames]) =>
         (tempRanking[teamnames] = endOfWeekRanking[i + 1][id])

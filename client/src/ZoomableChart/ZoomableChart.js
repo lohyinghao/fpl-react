@@ -84,7 +84,7 @@ const ZoomableChart = (props) => {
       left: 'dataMin',
       right: 'dataMax',
       top: 'dataMax+1',
-      bottom: 'dataMin',
+      bottom: 'dataMin-1',
     }));
   };
 

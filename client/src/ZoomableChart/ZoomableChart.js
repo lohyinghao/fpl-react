@@ -137,6 +137,7 @@ const ZoomableChart = (props) => {
           type='number'
           yAxisId='1'
           reversed={true}
+          ticks={[1, 2, 3, 4]}
         />
         <Tooltip />
         <Legend />

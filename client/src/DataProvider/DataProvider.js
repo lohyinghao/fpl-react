@@ -7,6 +7,7 @@ import {
   getGWPoints,
   getMoney,
   getEndOfWeekRanking,
+  getGWPointsTableData,
 } from './DataProviderUtil';
 
 // should belong in some config files
@@ -18,6 +19,7 @@ const initialState = {
   totalPts: {},
   money: { Total: {} },
   endOfWeekRanking: {},
+  pointsTable: { Total: {} },
 };
 
 const fetchData = async (playersList, colors, data) => {
@@ -25,6 +27,7 @@ const fetchData = async (playersList, colors, data) => {
   await getGWPoints(playersList, data);
   await getMoney(playersList, data);
   await getEndOfWeekRanking(playersList, data);
+  await getGWPointsTableData(playersList, data);
 };
 
 ////// react stuff /////////

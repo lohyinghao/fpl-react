@@ -5,6 +5,22 @@ const getPlayersGWUrl = (playerId) =>
 const getPlayerUrl = (playerId) =>
   fetch(`/api/https://fantasy.premierleague.com/api/entry/${playerId}/`);
 
+export function getGWPointsTableData(playersList, data) {
+  for (let i = 0; i < data.currentGW; i++) {
+    let gw = i + 1;
+
+    let gwPts = {};
+    playersList.forEach((playerId) => {
+      gwPts[playerId] = data.gwPts[playerId][i];
+    });
+    data.pointsTable[gw] = gwPts;
+  }
+  playersList.forEach((playerId) => {
+    data.pointsTable['Total'][playerId] =
+      data.totalPts[playerId][data.currentGW - 1];
+  });
+}
+
 // Function to get teamnames
 export function getTeamnames(playersList, colors, data) {
   const promiseArray = [];

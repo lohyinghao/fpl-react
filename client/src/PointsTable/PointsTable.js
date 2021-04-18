@@ -21,9 +21,10 @@ const bottomOptions = Object.assign({}, topOptions);
 topOptions.alignedGrids.push(bottomOptions);
 bottomOptions.alignedGrids.push(topOptions);
 
-const PointsTable = () => {
+const PointsTable = (props) => {
   const state = useContext(MyContext);
   const moneytable = state.money || {};
+  const pointsTable = state.pointsTable || {};
   const playerMap = state.teamnames || {};
 
   const columnDefs = [
@@ -39,7 +40,10 @@ const PointsTable = () => {
     })),
   ];
 
-  const rowData = Object.entries(moneytable).map(([gw, subTable]) => ({
+  let tableData =
+    props.tableMode === 'Contributions' ? moneytable : pointsTable;
+
+  const rowData = Object.entries(tableData).map(([gw, subTable]) => ({
     id: gw,
     ...subTable,
   }));

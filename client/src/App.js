@@ -55,7 +55,7 @@ const App = () => {
                 }}
               >
                 <Grid container>
-                  <Grid item container xs={6}>
+                  <Grid item container xs={10}>
                     <Typography
                       component='h2'
                       variant='h6'
@@ -65,7 +65,7 @@ const App = () => {
                       {`${tableMode} per Gameweek`}
                     </Typography>
                   </Grid>
-                  <Grid item container xs={6} justify={'flex-end'}>
+                  <Grid item container xs={2} justify={'flex-end'}>
                     <IconButton
                       size='small'
                       onClick={() => {

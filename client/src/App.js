@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import DataProvider from './DataProvider/DataProvider';
 import PointsTable from './PointsTable/PointsTable';
@@ -13,8 +13,10 @@ import Paper from '@material-ui/core/Paper';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-import { faDragon } from '@fortawesome/free-solid-svg-icons';
+import { faDragon, faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import IconButton from '@material-ui/core/IconButton';
 
 export const MyContext = React.createContext();
 
@@ -27,6 +29,8 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
+  const [tableMode, setTableMode] = useState('Contributions');
+
   return (
     <DataProvider>
       <ThemeProvider theme={theme}>
@@ -50,15 +54,38 @@ const App = () => {
                   flexDirection: 'column',
                 }}
               >
-                <Typography
-                  component='h2'
-                  variant='h6'
-                  color='primary'
-                  gutterBottom
-                >
-                  Contributions per Gameweek
-                </Typography>
-                <PointsTable />
+                <Grid container>
+                  <Grid item container xs={6}>
+                    <Typography
+                      component='h2'
+                      variant='h6'
+                      color='primary'
+                      gutterBottom
+                    >
+                      {`${tableMode} per Gameweek`}
+                    </Typography>
+                  </Grid>
+                  <Grid item container xs={6} justify={'flex-end'}>
+                    <IconButton
+                      size='small'
+                      onClick={() => {
+                        setTableMode(
+                          tableMode === 'Contributions'
+                            ? 'Points'
+                            : 'Contributions'
+                        );
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faArrowsAltH}
+                        color='inherit'
+                        size='xs'
+                      />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+
+                <PointsTable tableMode={tableMode} />
               </Paper>
             </Grid>
             <Grid item md={4} xs={12}>

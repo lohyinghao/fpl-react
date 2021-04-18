@@ -58,8 +58,9 @@ const ContributionPie = () => {
   const playerMap = state.teamnames || {};
   const contribution = state.money['Total'] || {};
   const data = Object.entries(contribution).map(([id, money]) => ({
-    name: playerMap[id],
+    name: playerMap[id].name,
     value: money,
+    color: playerMap[id].color,
   }));
 
   const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -86,7 +87,7 @@ const ContributionPie = () => {
           onMouseEnter={onPieEnter}
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index]} />
+            <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>
       </PieChart>

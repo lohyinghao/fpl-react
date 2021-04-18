@@ -6,14 +6,16 @@ const getPlayerUrl = (playerId) =>
   fetch(`/api/https://fantasy.premierleague.com/api/entry/${playerId}/`);
 
 // Function to get teamnames
-export function getTeamnames(playersList, data) {
+export function getTeamnames(playersList, colors, data) {
   const promiseArray = [];
-  playersList.forEach((id) => {
-    let singleP = getPlayerUrl(id)
+  playersList.forEach((playerId, index) => {
+    let singleP = getPlayerUrl(playerId)
       .then((response) => response.json())
       .then((playerData) => {
-        data.teamnames[id] = playerData.name;
-        //data.money['Total'][playerData.name] = 0 // probably a better idea to slot this in the const above
+        data.teamnames[playerId] = {
+          name: playerData.name,
+          color: colors[index],
+        };
       });
     promiseArray.push(singleP);
   });

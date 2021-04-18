@@ -17,8 +17,8 @@ const PointsLineChart = () => {
   for (let i = 0; i < currentGW; i++) {
     let tempRanking = { name: i + 1 };
     Object.entries(playerMap).forEach(
-      ([id, teamnames]) =>
-        (tempRanking[teamnames] = endOfWeekRanking[i + 1][id])
+      ([id, playerData]) =>
+        (tempRanking[playerData.name] = endOfWeekRanking[i + 1][id])
     );
     data.push(tempRanking);
   }

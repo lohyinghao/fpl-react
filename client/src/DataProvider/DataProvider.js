@@ -11,6 +11,7 @@ import {
 
 // should belong in some config files
 const playersList = ['1737057', '385668', '381635', '384937'];
+const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const initialState = {
   teamnames: {},
   gwPts: {},
@@ -19,13 +20,11 @@ const initialState = {
   endOfWeekRanking: {},
 };
 
-const fetchData = async (playersList, data) => {
-  await getTeamnames(playersList, data);
+const fetchData = async (playersList, colors, data) => {
+  await getTeamnames(playersList, colors, data);
   await getGWPoints(playersList, data);
   await getMoney(playersList, data);
   await getEndOfWeekRanking(playersList, data);
-  //console.log(data)
-  return data;
 };
 
 ////// react stuff /////////
@@ -34,8 +33,8 @@ const DataProvider = ({ children }) => {
   const [state, setState] = useState(initialState);
 
   useEffect(async () => {
-    const data = await fetchData(playersList, initialState);
-    setState({ ...initialState, data });
+    await fetchData(playersList, colors, initialState);
+    setState({ ...initialState });
   }, []);
 
   return <MyContext.Provider value={state}>{children}</MyContext.Provider>;

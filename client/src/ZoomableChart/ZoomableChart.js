@@ -10,9 +10,8 @@ import {
   Legend,
   ReferenceArea,
   ResponsiveContainer,
+  Label,
 } from 'recharts';
-
-const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const ZoomableChart = (props) => {
   const [state, setState] = useState({
@@ -111,11 +110,13 @@ const ZoomableChart = (props) => {
   return (
     <ResponsiveContainer width='100%' height={350}>
       <LineChart
+        margin={{ left: -10, right: 10 }}
         data={data}
         onMouseDown={(e) => {
-          setState({ ...state, ...{ refAreaLeft: e.activeLabel } });
+          if (e) setState({ ...state, ...{ refAreaLeft: e.activeLabel } });
         }}
         onMouseMove={(e) =>
+          e &&
           state.refAreaLeft &&
           setState({ ...state, ...{ refAreaRight: e.activeLabel } })
         }
@@ -137,15 +138,14 @@ const ZoomableChart = (props) => {
           yAxisId='1'
           reversed={true}
         />
-
         <Tooltip />
         <Legend />
-        {Object.entries(playerMap).map(([id, teamnames], index) => (
+        {Object.entries(playerMap).map(([id, playerData], index) => (
           <Line
             yAxisId='1'
             key={`line-${index}`}
-            dataKey={teamnames}
-            stroke={colors[index]}
+            dataKey={playerData.name}
+            stroke={playerData.color}
             dot={false}
             strokeWidth={3}
           />

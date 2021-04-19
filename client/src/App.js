@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-import { faDragon, faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
+import { faDragon, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -76,11 +76,7 @@ const App = () => {
                         );
                       }}
                     >
-                      <FontAwesomeIcon
-                        icon={faArrowsAltH}
-                        color='inherit'
-                        size='xs'
-                      />
+                      <FontAwesomeIcon icon={faMagic} color='inherit' />
                     </IconButton>
                   </Grid>
                 </Grid>

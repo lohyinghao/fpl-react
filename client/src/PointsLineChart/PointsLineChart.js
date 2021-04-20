@@ -1,15 +1,12 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import './PointsLineChart.css';
 import { MyContext } from '../App';
 import ZoomableChart from '../ZoomableChart/ZoomableChart';
 
 const PointsLineChart = () => {
   const state = useContext(MyContext);
-  //const data = state.money.total || {}
 
   const playerMap = state.teamnames || {};
-  //const totalPoints = state.totalPts || {};
   const currentGW = state.currentGW;
   const endOfWeekRanking = state.endOfWeekRanking || {};
   const data = [];

@@ -32,11 +32,6 @@ const PointsTable = (props) => {
     ...Object.entries(playerMap).map(([id, playerData]) => ({
       field: id,
       headerName: playerData.name.replace(/the\s/i, ''),
-      // renderHeader: (params) => {
-      //   return params.colDef.width > 150
-      //     ? playerName
-      //     : playerName.match(/\b(\w)/g).join(''); // get acronym
-      // },
     })),
   ];
 

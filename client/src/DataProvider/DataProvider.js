@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './DataProvider.css';
 import { MyContext } from '../App';
 import {
@@ -10,7 +9,7 @@ import {
   getGWPointsTableData,
 } from './DataProviderUtil';
 
-// should belong in some config files
+// configurations
 const playersList = ['1737057', '385668', '381635', '384937'];
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const initialState = {
@@ -29,8 +28,6 @@ const fetchData = async (playersList, colors, data) => {
   await getEndOfWeekRanking(playersList, data);
   await getGWPointsTableData(playersList, data);
 };
-
-////// react stuff /////////
 
 const DataProvider = ({ children }) => {
   const [state, setState] = useState(initialState);

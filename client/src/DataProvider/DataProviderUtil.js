@@ -64,17 +64,13 @@ export function getMoney(playersList, data) {
     let gw = i + 1;
     data.money[gw] = {};
     let scoringArr = [];
-    //let tempTeamname = [];
     for (let x = 0; x < playersList.length; x++) {
-      //tempTeamname.push(data.teamnames[playersList[x]]);
       scoringArr.push(data.gwPts[playersList[x]][i]);
     }
 
     let ranks = calculateContribution(scoringArr);
     for (let k = 0; k < ranks.length; k++) {
-      //let teamname = tempTeamname[k];
       data.money[gw][playersList[k]] = ranks[k];
-      // probably can be replace with lodash
       if (typeof data.money['Total'][playersList[k]] === 'undefined') {
         data.money['Total'][playersList[k]] = 0;
       }
@@ -84,7 +80,6 @@ export function getMoney(playersList, data) {
 }
 
 function rankings(arr) {
-  // add whatever parameters you deem necessary....good luck!
   var sorted = arr.slice().sort(function (a, b) {
     return b - a;
   });
@@ -99,17 +94,13 @@ export function getEndOfWeekRanking(playersList, data) {
     let gw = i + 1;
     data.endOfWeekRanking[gw] = {};
     let ranking = [];
-    //let tempTeamname = [];
     for (let x = 0; x < playersList.length; x++) {
-      //tempTeamname.push(data.teamnames[playersList[x]]);
       ranking.push(data.totalPts[playersList[x]][i]);
     }
 
     let ranks = rankings(ranking);
     for (let k = 0; k < ranks.length; k++) {
-      //let teamname = tempTeamname[k];
       data.endOfWeekRanking[gw][playersList[k]] = ranks[k];
-      // probably can be replace with lodash
     }
   }
 }
@@ -145,11 +136,7 @@ function paymentcalculator(arr) {
   }
   if (unique.length == 1) {
     for (let i = 0; i < arr.length; i++) {
-      //in this particular season due to covid,
-      // 4 ways tied are all results of cancelled gw
-      // hencing zeroing them out here.
-      // output[i] = 4;
-      output[i] = 0;
+      output[i] = 4;
     }
   }
   if (unique.length == 2) {

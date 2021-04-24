@@ -5,7 +5,7 @@ import { MyContext } from '../App';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 const topOptions = {
   alignedGrids: [],
@@ -48,16 +48,16 @@ const PointsTable = (props) => {
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
-      className='ag-theme-alpine'
+      className='ag-theme-balham'
     >
-      <div style={{ flex: '1 1 auto', height: '300px' }}>
+      <div style={{ flex: '1 1 auto', height: '310px' }}>
         <AgGridReact
           rowData={rowData}
           columnDefs={columnDefs}
           gridOptions={topOptions}
         />
       </div>
-      <div style={{ flex: 'none', height: '60px' }}>
+      <div style={{ flex: 'none', height: '50px' }}>
         <AgGridReact
           rowData={totalRowData}
           columnDefs={columnDefs}

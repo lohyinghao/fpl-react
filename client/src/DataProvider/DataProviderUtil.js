@@ -46,11 +46,15 @@ export function getGWPoints(playersList, data) {
     let singleP = getPlayersGWUrl(id)
       .then((response) => response.json())
       .then((gwData) => {
-        data.gwPts[id] = [];
-        data.totalPts[id] = [];
         gwData.current.forEach((res) => {
-          data.gwPts[id].push(res.points - res.event_transfers_cost);
-          data.totalPts[id].push(res.total_points);
+          if (typeof data.gwPts[res.event] === 'undefined') {
+            data.gwPts[res.event] = {};
+          }
+          data.gwPts[res.event][id] = res.points - res.event_transfers_cost;
+          if (typeof data.totalPts[res.event] === 'undefined') {
+            data.totalPts[res.event] = {};
+          }
+          data.totalPts[res.event][id] = res.total_points;
           data.currentGW = res.event;
         });
       });
@@ -60,14 +64,12 @@ export function getGWPoints(playersList, data) {
 }
 
 export function getMoney(playersList, data) {
-  for (let i = 0; i < data.gwPts[playersList[0]].length; i++) {
-    let gw = i + 1;
+  Object.entries(data.gwPts).forEach(([gw, playersPoints]) => {
     data.money[gw] = {};
     let scoringArr = [];
     for (let x = 0; x < playersList.length; x++) {
-      scoringArr.push(data.gwPts[playersList[x]][i]);
+      scoringArr.push(playersPoints[playersList[x]]);
     }
-
     let ranks = calculateContribution(scoringArr);
     for (let k = 0; k < ranks.length; k++) {
       data.money[gw][playersList[k]] = ranks[k];
@@ -76,7 +78,7 @@ export function getMoney(playersList, data) {
       }
       data.money['Total'][playersList[k]] += ranks[k];
     }
-  }
+  });
 }
 
 function rankings(arr) {
@@ -90,19 +92,17 @@ function rankings(arr) {
 }
 
 export function getEndOfWeekRanking(playersList, data) {
-  for (let i = 0; i < data.totalPts[playersList[0]].length; i++) {
-    let gw = i + 1;
+  Object.entries(data.totalPts).forEach(([gw, playersPoints]) => {
     data.endOfWeekRanking[gw] = {};
     let ranking = [];
     for (let x = 0; x < playersList.length; x++) {
-      ranking.push(data.totalPts[playersList[x]][i]);
+      ranking.push(playersPoints[playersList[x]]);
     }
-
     let ranks = rankings(ranking);
     for (let k = 0; k < ranks.length; k++) {
       data.endOfWeekRanking[gw][playersList[k]] = ranks[k];
     }
-  }
+  });
 }
 
 function calculateContribution(arr) {

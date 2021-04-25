@@ -26,7 +26,6 @@ const fetchData = async (playersList, colors, data) => {
   await getGWPoints(playersList, data);
   await getMoney(playersList, data);
   await getEndOfWeekRanking(playersList, data);
-  await getGWPointsTableData(playersList, data);
 };
 
 const DataProvider = ({ children }) => {

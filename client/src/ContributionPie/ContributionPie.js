@@ -53,7 +53,6 @@ const renderActiveShape = (props) => {
 
 const ContributionPie = () => {
   const state = useContext(MyContext);
-  //const data = state.money.total || {}
 
   const playerMap = state.teamnames || {};
   const contribution = state.money['Total'] || {};

@@ -24,8 +24,10 @@ bottomOptions.alignedGrids.push(topOptions);
 const PointsTable = (props) => {
   const state = useContext(MyContext);
   const moneytable = state.money || {};
-  const pointsTable = state.pointsTable || {};
+  const gwPts = state.gwPts || {};
   const playerMap = state.teamnames || {};
+  const totalPts = state.totalPts || {};
+  const currentGW = state.currentGW;
 
   const columnDefs = [
     { field: 'id', headerName: 'GW' },
@@ -35,8 +37,14 @@ const PointsTable = (props) => {
     })),
   ];
 
-  let tableData =
-    props.tableMode === 'Contributions' ? moneytable : pointsTable;
+  let tableData = {};
+  if (props.tableMode === 'Contributions') {
+    tableData = moneytable;
+  } else {
+    let totalRow = {};
+    totalRow['Total'] = totalPts[currentGW];
+    tableData = { ...gwPts, ...totalRow };
+  }
 
   const rowData = Object.entries(tableData).map(([gw, subTable]) => ({
     id: gw,

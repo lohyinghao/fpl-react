@@ -47,14 +47,13 @@ export function getGWPoints(playersList, data) {
       .then((response) => response.json())
       .then((gwData) => {
         gwData.current.forEach((res) => {
-          if (typeof data.gwPts[res.event] === 'undefined') {
-            data.gwPts[res.event] = {};
-          }
+          // Update gameweek points on state
+          data.gwPts[res.event] = data.gwPts[res.event] || {};
           data.gwPts[res.event][id] = res.points - res.event_transfers_cost;
-          if (typeof data.totalPts[res.event] === 'undefined') {
-            data.totalPts[res.event] = {};
-          }
+          // Update accumlated points on state
+          data.totalPts[res.event] = data.totalPts[res.event] || {};
           data.totalPts[res.event][id] = res.total_points;
+          // Update current GW
           data.currentGW = res.event;
         });
       });
@@ -73,9 +72,9 @@ export function getMoney(playersList, data) {
     let ranks = calculateContribution(scoringArr);
     for (let k = 0; k < ranks.length; k++) {
       data.money[gw][playersList[k]] = ranks[k];
-      if (typeof data.money['Total'][playersList[k]] === 'undefined') {
-        data.money['Total'][playersList[k]] = 0;
-      }
+      // If undefined, set as 0
+      data.money['Total'][playersList[k]] =
+        data.money['Total'][playersList[k]] || 0;
       data.money['Total'][playersList[k]] += ranks[k];
     }
   });

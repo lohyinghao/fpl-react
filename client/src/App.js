@@ -34,7 +34,7 @@ const App = () => {
   return (
     <DataProvider>
       <ThemeProvider theme={theme}>
-        <AppBar position='static' color='primary'>
+        <AppBar position='sticky' color='primary'>
           <Toolbar>
             <Typography variant='h6'>
               <FontAwesomeIcon icon={faDragon} color='inherit' size='lg' /> The

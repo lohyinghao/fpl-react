@@ -10,6 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -34,7 +35,13 @@ const App = () => {
   return (
     <DataProvider>
       <ThemeProvider theme={theme}>
-        <AppBar position='sticky' color='primary'>
+        <AppBar
+          position='sticky'
+          color='primary'
+          style={
+            useMediaQuery('(max-width: 768px)') ? { alignItems: 'center' } : {}
+          }
+        >
           <Toolbar>
             <Typography variant='h6'>
               <FontAwesomeIcon icon={faDragon} color='inherit' size='lg' /> The

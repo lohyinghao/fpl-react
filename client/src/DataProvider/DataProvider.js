@@ -10,7 +10,7 @@ import {
 } from './DataProviderUtil';
 
 // configurations
-const playersList = ['1737057', '385668', '381635', '384937'];
+const playersList = ['2942939', '692621', '1275339', '67851'];
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const initialState = {
   teamnames: {},
